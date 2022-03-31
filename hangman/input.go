@@ -30,3 +30,19 @@ func ReadGuess() (guess string, err error) {
 	}
 	return guess, nil
 }
+
+func Quitter() (choix string, err error) {
+	valid := false
+	for !valid {
+		fmt.Print("Est ce que vous voulez quitter ou vous voulez rejoué? O/N")
+		choix, err = reader.ReadString('\n')
+		if err != nil {
+			return choix, err
+		}
+		choix = strings.TrimSpace(strings.ToUpper(choix))
+		if choix == "O" || choix == "N" {
+			valid = true
+		}
+	}
+	return choix, err
+}

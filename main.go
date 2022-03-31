@@ -48,7 +48,7 @@ func main() {
 	guess := ""
 	for {
 		CallClear()
-		if len(g.FoundLetters) == 0 {
+		if guess == "" {
 			hangman.DrawWelcome()
 		}
 
@@ -56,7 +56,16 @@ func main() {
 
 		switch g.State {
 		case "won", "lost":
-			os.Exit(0)
+			reponse, err := hangman.Quitter()
+			if err != nil {
+				fmt.Printf("Votre reponse cause une erreur: %v\n", err)
+			}
+			switch reponse {
+			case "O":
+				main()
+			case "N":
+				os.Exit(0)
+			}
 		}
 
 		l, err := hangman.ReadGuess()
